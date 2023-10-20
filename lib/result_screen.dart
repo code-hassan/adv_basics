@@ -1,15 +1,18 @@
-import 'package:adv_basics/question_summery.dart';
+
+import 'package:adv_basics/question_summery/questions._summery.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'data/question.dart';
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen({
     super.key,
-    required this.chosenAnswers,
+    required this.chosenAnswers, required this.onRestart,
   });
 
   final List<String> chosenAnswers;
+  final void Function() onRestart;
 
 
 
@@ -50,13 +53,26 @@ class ResultScreen extends StatelessWidget {
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      Text("You answered $numbCorrectQuestion out of $numbTotalQuestion question correctly!"),
+      Text(
+          "You answered $numbCorrectQuestion out of $numbTotalQuestion question correctly!",
+        style: GoogleFonts.lato(
+          color: const Color.fromARGB(255, 230, 200, 253),
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
+
+      ),
       const SizedBox(height: 30,),
       QuestionSummery(summeryData),
       const SizedBox(height: 30,),
-      TextButton(
-          onPressed: (){},
-          child: const Text("Restart Quiz!"),
+      TextButton.icon(
+        onPressed: onRestart,
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.white,
+        ),
+        icon: const Icon(Icons.refresh),
+        label: const Text('Restart Quiz!'),
       ),
     ],
     ),
